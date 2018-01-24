@@ -12,4 +12,23 @@ routes.get('/home', (req, res) => {
 })
 
 
+routes.get('/add', (req, res) => {
+  res.render('add-album', {})
+})
+
+routes.post('/add', (req, res) => {
+  var db = req.app.get('db')
+  var details = req.body
+  db('artists')
+    .insert({artist_name: details.artist})
+    .then((artist_id) => {
+      console.log(artist_id)
+      db('albums')
+        .insert({album_title: details.album, artist_id: artist_id[0], release_year: details.releaseYear})
+        .then((album_id) => {
+          res.render('success', {artist_id})
+        })
+    })
+})
+
 module.exports = routes
