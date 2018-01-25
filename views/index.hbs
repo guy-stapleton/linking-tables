@@ -1,1 +1,7 @@
-{{greeting}}
+<h1>My Favourite Albums</h1>
+
+
+{{#each albums}}
+  <p>Title {{album_title}} by {{artist_name}}</p>
+  <p>{{release_year}}</p>
+{{/each}}
